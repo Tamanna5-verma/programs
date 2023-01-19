@@ -1,0 +1,19 @@
+3. Kadane's algorithm
+Given an array Arr[] of N integers. Find the contiguous sub-array(containing at least one number) which has the maximum sum and return its sum.
+
+
+class Solution{
+	public:
+	long long Subarray(int arr[],int n)
+	{
+		long long max_sum=arr[0];
+		long long max_till_now=arr[0]<0?0:arr[0];
+		for(int i=1;i<n;i++)
+		{
+			max_sum = max( max_sum, arr[i]+max_till_now);
+			max_till_now += arr[i];
+			if (max_till_now < 0) max_till_now=0;
+		}
+		return max_sum;
+	}
+};
