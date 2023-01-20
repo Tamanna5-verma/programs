@@ -1,0 +1,33 @@
+.We are given two sorted arrays. We need to merge these two arrays such that the initial numbers (after complete sorting) are in the first array and the remaining numbers are in the second array. Extra space is allowed in O(1).
+class Solution{
+	public:
+	int nextgap(int gap)
+	{
+		if(gap==0 || gap==1)return0;
+		int nxtgap=(gap/2)+(gap%2);
+		return nxtgap;
+	}
+	int mergearrays(int arr1[],int arr2[],int n,int m)
+	{
+		int gap=n+m;
+		for(int g=nextgap(gap);g>0;g=nextgap(g))
+		{
+			for(int i=0;i<n+m;i++)
+			{
+				int j=i+g;
+				if(i<n && j<n)
+				{
+					if(arr1[i]>arr1[j]) swap(arr1[i],arr2[j]);
+				}
+				else if(i<n && j>=n)
+				{
+					if(arr1[i]>arr2[j-n]) swap(arr1[i],arr2[j-n]);
+				}
+				else if(i>=n && j>=n)
+				{
+					if(arr2[i-n]>arr2[j-n]) swap(arr2[i-n],arr2[j-n]);
+				}
+			}
+		}
+	}
+};
