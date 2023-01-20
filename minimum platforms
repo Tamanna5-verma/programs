@@ -1,0 +1,33 @@
+Given arrival and departure times of all trains that reach a railway station. Find the minimum number of platforms required for the railway station so that 
+no train is kept waiting.
+Consider that all the trains arrive on the same day and leave on the same day. Arrival and departure time can never be the same for a train but we can have arrival time 
+of one train equal to departure time of the other. 
+At any given instance of time, same platform can not be used for both departure of a train and arrival of another train.
+In such cases, we need different platforms.
+
+class Solution{
+    public:
+    //Function to find the minimum number of platforms required at the
+    //railway station such that no train waits.
+    int findPlatform(int arr[], int dep[], int n)
+    {
+    	// Your code here
+    	int platform[2361];
+    	int requiredplatform =1;
+    	for(int i=0;i<2361;i++)
+    	{
+    	    platform[i]=0;
+    	}
+    	for(int i=0;i<n;i++)
+    	{
+    	    platform[arr[i]] +=1;
+    	    platform[dep[i]+1] -=1;
+    	}
+    	for(int i=0;i<2361;i++)
+    	{
+    	    platform[i]=platform[i]+platform[i-1];
+    	    requiredplatform = max(requiredplatform,platform[i]);
+    	}
+        return requiredplatform;	
+    }
+};
