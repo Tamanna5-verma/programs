@@ -1,0 +1,53 @@
+Given an array of integers. Find the Inversion Count in the array. 
+
+Inversion Count: For an array, inversion count indicates how far (or close) the array is from being sorted. If array is already sorted then the inversion count is 0. If an array is sorted in the reverse order then the inversion count is the maximum. 
+Formally, two elements a[i] and a[j] form an inversion if a[i] > a[j] and i < j.
+
+class Solution{
+  public:
+    // arr[]: Input Array
+    // N : Size of the Array arr[]
+    // Function to count inversions in the array.
+    long long merge(long long arr[],int lo,int mid,int hi)
+    {
+        long long temp[hi-lo+1];
+        int ptr1=lo, ptr2=mid+1,pos=0;
+        long long invcount=0;
+        while(ptr1<=mid && ptr2<=hi)
+        {
+            if(arr[ptr1]>arr[ptr2]){
+                temp[pos++]=arr[ptr2++];
+                invcount += (mid -ptr1+1);
+            }
+            else{
+                temp[pos++]=arr[ptr1++];
+            }
+        }
+        while(ptr1 <=mid )
+        {
+            temp[pos++]=arr[ptr1++];
+        }
+        while(ptr2<=hi)
+        {
+            temp[pos++]=arr[ptr2++];    
+        }
+        for(int i=0;i<pos;i++)
+            arr[i+lo]=temp[i];
+        return invcount;
+    }
+    long long mergesort(long long arr[],int lo,int hi)
+    {
+        if(lo>=hi)return 0;
+        int mid=(lo+hi)/2;
+        long long invcount=mergesort(arr,lo,mid);
+        invcount += mergesort(arr,mid+1,hi);
+        invcount += merge(arr,lo,mid,hi);
+        return invcount;
+    }
+    long long int inversionCount(long long arr[], long long N)
+    {
+        // Your Code Here
+        return mergesort(arr,0,N-1);
+    }
+
+};
