@@ -1,0 +1,36 @@
+Given a sorted array of positive integers. Your task is to rearrange the array elements alternatively i.e first element should be max value, second should be min value, third should be second max, fourth should be second min and so on.
+Note: Modify the original array itself. Do it without using any extra space. You do not have to return anything.
+class Solution{
+    public:
+    // This function wants you to modify the given input
+    // array and no need to return anything
+    // arr: input array
+    // n: size of array
+    //Function to rearrange  the array elements alternately.
+    void rearrange(long long *arr, int n) 
+    { 
+    	
+    	long long m=arr[0];
+    	// Your code here
+    	for(int i=0;i<n;i++)m=max(m,arr[i]);
+    	m++;
+    	bool flag=true;
+    	int front=0,back=n-1;
+    	for(int i=0;i<n;i++)
+    	{
+    	    if(flag)
+    	    {
+    	       long long val=arr[back--]%m;
+    	       arr[i] += m*val;
+    	    }
+    	    else{
+    	        long long val=arr[front++]%m;
+    	        arr[i] += m*val;
+    	    }
+    	    flag= !flag;
+    	}
+    	for(int i=0;i<n;i++)
+    	arr[i] /= m;
+    	 
+    }
+};
