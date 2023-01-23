@@ -1,0 +1,30 @@
+Given an array arr of N integers, write a function that returns true if there is a triplet (a, b, c) that satisfies a2 + b2 = c2, otherwise false.
+
+class Solution{
+public:
+	// Function to check if the
+	// Pythagorean triplet exists or not
+	bool checkTriplet(int arr[], int n) {
+	    // code here
+	    int i;
+	    sort(arr,arr+n);
+	    for(i=n-1;i>=2;i--)
+	    {
+	        int low=0;
+	        int high=i-1;
+	        while(low<=high)
+	        {
+	            if(pow(arr[low],2) + pow(arr[high],2) ==pow (arr[i],2))
+	            {
+	            
+	            return true;
+	            }
+	           else if(pow(arr[low],2) + pow(arr[high],2) > pow(arr[i],2))
+	           high--;
+	           else
+	           low++;
+	        }
+	    }
+	    return false;
+	}
+};
